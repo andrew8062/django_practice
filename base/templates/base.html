@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>{% block title %}午餐系統{% endblock title %}</title>
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+</head>
+
+<body>
+{% block body %}
+<nav class="navbar navbar-default navbar-static-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="{% url 'home' %}">午餐系統</a>
+    </div>
+    <div>
+      <ul class="nav navbar-nav">
+        <li><a href="{% url 'store_list' %}">店家列表</a></li>
+      </ul>
+      <form class="navbar-right navbar-form" method="post" action="{% url 'logout' %}">
+      	{% if user.is_authenticated %}
+      	{% csrf_token %}
+      	<input type='hidden' name='next', value="{% url 'home' %}">
+      	<button class="btn btn-default" type="submit">log out</button>
+      	{% else %}
+        <a class="btn btn-default" href="{% url 'login' %}">login</a>
+        {% endif %}
+      </form>
+    </div>
+  </div>
+</nav>
+{% endblock body %}
+</body>
+</html>
